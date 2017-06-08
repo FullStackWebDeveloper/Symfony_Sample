@@ -1,0 +1,28 @@
+services:
+    # models
+    calendar.model.holiday:
+        class: CalendarBundle\Model\HolidayModel
+        arguments: ["@doctrine.orm.entity_manager", "@notice.model.notice"]
+
+    calendar.model.dayoff:
+        class: CalendarBundle\Model\DayoffModel
+        arguments: ["@doctrine.orm.entity_manager", "@notice.model.notice"]
+
+    calendar.model.calendar:
+        class: CalendarBundle\Model\CalendarModel
+        arguments:
+            - "@user.model.user"
+            - "@calendar.service.calendar"
+            - "@project.model.task"
+
+    # services
+    calendar.service.calendar:
+        class: CalendarBundle\Service\CalendarService
+        arguments: ["@calendar.model.holiday"]
+
+    # validators
+    calendar.validator.dayoff_range:
+        class: CalendarBundle\Validator\Constraints\DayOffRangeValidator
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: validator.constraint_validator, alias: dayoff_range }

@@ -1,0 +1,13 @@
+# Objects
+CalendarBundle\Form\Object\DayOffRangeObject:
+    properties:
+        type:
+            - NotBlank: ~
+        startDate:
+            - NotBlank: ~
+            - Date: ~
+        endDate:
+            - NotBlank: ~
+            - Date: ~
+    constraints:
+        - CalendarBundle\Validator\Constraints\DayOffRange: ~
